@@ -8,6 +8,7 @@
 
 namespace xdg
 {
+// NotCopyable deletes the copy c'tor and the assignment operator.
 struct NotCopyable
 {
     NotCopyable() = default;
@@ -16,6 +17,7 @@ struct NotCopyable
     NotCopyable& operator=(const NotCopyable&) = delete;
 };
 
+// NotMoveable deletes the move c'tor and the move assignment operator.
 struct NotMoveable
 {
     NotMoveable() = default;
@@ -24,6 +26,7 @@ struct NotMoveable
     NotMoveable& operator=(NotMoveable&&) = delete;
 };
 
+// Data provides functions to query the XDG_DATA_* entries.
 class Data : NotCopyable, NotMoveable
 {
 public:
@@ -36,6 +39,7 @@ public:
     virtual std::vector<boost::filesystem::path> dirs() const;
 };
 
+// Config provides functions to query the XDG_CONFIG_* entries.
 class Config : NotCopyable, NotMoveable
 {
 public:
@@ -48,6 +52,7 @@ public:
     virtual std::vector<boost::filesystem::path> dirs() const;
 };
 
+// Cache provides functions to query the XDG_CACHE_HOME entry.
 class Cache : NotCopyable, NotMoveable
 {
 public:
@@ -56,6 +61,7 @@ public:
     virtual boost::filesystem::path home() const;
 };
 
+// Runtime provides functions to query the XDG_RUNTIME_DIR entry.
 class Runtime : NotCopyable, NotMoveable
 {
 public:

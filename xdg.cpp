@@ -91,12 +91,11 @@ private:
 
 fs::path xdg::Data::home() const
 {
-    fs::path p{env::get(env::xdg_data_home, "")};
+    auto v = env::get(env::xdg_data_home, "");
+    if (v.empty())
+        return throw_if_not_absolute(fs::path{env::get_or_throw("HOME")} / ".local" / "share");
 
-    if (fs::is_directory(p))
-        return p;
-
-    return fs::path{env::get_or_throw("HOME")} / ".local" / "share";
+    return throw_if_not_absolute(fs::path(v));
 }
 
 std::vector<fs::path> xdg::Data::dirs() const
@@ -107,21 +106,18 @@ std::vector<fs::path> xdg::Data::dirs() const
     std::vector<fs::path> result;
     for (const auto& token : tokens)
     {
-        fs::path p(token);
-        if (fs::is_directory(p))
-            result.push_back(p);
+        result.push_back(throw_if_not_absolute(fs::path(token)));
     }
     return result;
 }
 
 fs::path xdg::Config::home() const
 {
-    fs::path p{env::get(env::xdg_config_home, "")};
+    auto v = env::get(env::xdg_config_home, "");
+    if (v.empty())
+        return throw_if_not_absolute(fs::path{env::get_or_throw("HOME")} / ".config");
 
-    if (fs::is_directory(p))
-        return throw_if_not_absolute(p);
-
-    return throw_if_not_absolute(fs::path{env::get_or_throw("HOME")} / ".config");
+    return throw_if_not_absolute(fs::path(v));
 }
 
 std::vector<fs::path> xdg::Config::dirs() const
@@ -133,32 +129,31 @@ std::vector<fs::path> xdg::Config::dirs() const
     for (const auto& token : tokens)
     {
         fs::path p(token);
-        if (fs::is_directory(p))
-            result.push_back(throw_if_not_absolute(p));
+        result.push_back(throw_if_not_absolute(p));
     }
     return result;
 }
 
 fs::path xdg::Cache::home() const
 {
-    fs::path p{env::get(env::xdg_cache_home, "")};
+    auto v = env::get(env::xdg_cache_home, "");
+    if (v.empty())
+        return throw_if_not_absolute(fs::path{env::get_or_throw("HOME")} / ".cache");
 
-    if (fs::is_directory(p))
-        return throw_if_not_absolute(p);
-
-    return throw_if_not_absolute(fs::path{env::get_or_throw("HOME")} / ".cache");
+    return throw_if_not_absolute(fs::path(v));
 }
 
 fs::path xdg::Runtime::dir() const
 {
-    fs::path p{env::get(env::xdg_config_home, "")};
+    auto v = env::get(env::xdg_config_home, "");
+    if (v.empty())
+    {
+        // We do not fall back gracefully and instead throw, dispatching to calling
+        // code for handling the case of a safe user-specfic runtime directory missing.
+        throw std::runtime_error{"Runtime directory not set"};
+    }
 
-    if (fs::is_directory(p))
-        return throw_if_not_absolute(p);
-
-    // We do not fall back gracefully and instead throw, dispatching to calling
-    // code for handling the case of a safe user-specfic runtime directory missing.
-    throw std::runtime_error{"Runtime directory not set"};
+    return throw_if_not_absolute(fs::path(v));
 }
 
 boost::filesystem::path xdg::data::home()

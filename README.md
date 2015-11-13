@@ -12,10 +12,10 @@ so I decided to place my own little helper here.
 
 Install with
 ```bash
-sudo apt-get install libboost-filesystem-dev libboost-system-dev libboost-test-dev`.
+sudo apt-get install libboost-filesystem-dev libboost-system-dev libboost-test-dev
 ```
 
-## Example Of Quick'n'Easy Integration
+## Quick'n'Easy Integration
 
 xdg provides free functions that are easy to integrate with existing projects.
 ```cpp
@@ -34,7 +34,7 @@ int main()
 }
 ```
 
-## Example Of Complete Integration
+## Complete Integration
 
 The interface xdg::BaseDirSpecification can be used to integrate xdg base directory
 queries into a code base such that interaction with the xdg::BaseDirSpecification is testable.

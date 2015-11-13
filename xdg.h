@@ -1,6 +1,8 @@
 #ifndef XDG_H_
 #define XDG_H_
 
+#include <boost/filesystem.hpp>
+
 #include <string>
 #include <vector>
 
@@ -27,11 +29,11 @@ class Data : NotCopyable, NotMoveable
 public:
     // home returns the base directory relative to which user specific
     // data files should be stored.
-    virtual std::string home() const;
+    virtual boost::filesystem::path home() const;
     // dirs returns the preference-ordered set of base directories to
     // search for data files in addition to the $XDG_DATA_HOME base
     // directory.
-    virtual std::vector<std::string> dirs() const;
+    virtual std::vector<boost::filesystem::path> dirs() const;
 };
 
 class Config : NotCopyable, NotMoveable
@@ -39,11 +41,11 @@ class Config : NotCopyable, NotMoveable
 public:
     // home returns the base directory relative to which user specific
     // configuration files should be stored.
-    virtual std::string home() const;
+    virtual boost::filesystem::path home() const;
     // dirs returns the preference-ordered set of base directories to
     // search for configuration files in addition to the
     // $XDG_CONFIG_HOME base directory.
-    virtual std::vector<std::string> dirs() const;
+    virtual std::vector<boost::filesystem::path> dirs() const;
 };
 
 class Cache : NotCopyable, NotMoveable
@@ -51,7 +53,7 @@ class Cache : NotCopyable, NotMoveable
 public:
     // home returns the base directory relative to which user specific
     // non-essential data files should be stored.
-    virtual std::string home() const;
+    virtual boost::filesystem::path home() const;
 };
 
 class Runtime : NotCopyable, NotMoveable
@@ -60,7 +62,7 @@ public:
     // home returns the base directory relative to which user-specific
     // non-essential runtime files and other file objects (such as
     // sockets, named pipes, ...) should be stored.
-    virtual std::string dir() const;
+    virtual boost::filesystem::path dir() const;
 };
 
 // A BaseDirSpecification implements the XDG base dir specification:
@@ -84,34 +86,34 @@ namespace data
 {
 // home returns the base directory relative to which user specific
 // data files should be stored.
-std::string home();
+boost::filesystem::path home();
 // dirs returns the preference-ordered set of base directories to
 // search for data files in addition to the $XDG_DATA_HOME base
 // directory.
-std::vector<std::string> dirs();
+std::vector<boost::filesystem::path> dirs();
 }
 namespace config
 {
 // home returns the base directory relative to which user specific
 // configuration files should be stored.
-std::string home();
+boost::filesystem::path home();
 // dirs returns the preference-ordered set of base directories to
 // search for configuration files in addition to the
 // $XDG_CONFIG_HOME base directory.
-std::vector<std::string> dirs();
+std::vector<boost::filesystem::path> dirs();
 }
 namespace cache
 {
 // home returns the base directory relative to which user specific
 // non-essential data files should be stored.
-std::string home();
+boost::filesystem::path home();
 }
 namespace runtime
 {
 // home returns the base directory relative to which user-specific
 // non-essential runtime files and other file objects (such as
 // sockets, named pipes, ...) should be stored.
-std::string dir();
+boost::filesystem::path dir();
 }
 }
 

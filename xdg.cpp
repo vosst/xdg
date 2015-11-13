@@ -162,6 +162,11 @@ fs::path xdg::Runtime::dir() const
     return throw_if_not_absolute(fs::path(v));
 }
 
+std::shared_ptr<xdg::BaseDirSpecification> xdg::BaseDirSpecification::create()
+{
+    return std::make_shared<impl::BaseDirSpecification>();
+}
+
 const xdg::Data& xdg::data()
 {
     return impl::BaseDirSpecification::instance().data();

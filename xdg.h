@@ -76,6 +76,9 @@ public:
 class BaseDirSpecification : NotCopyable, NotMoveable
 {
 public:
+    // create returns an Implementation of BaseDirSpecification.
+    static std::shared_ptr<BaseDirSpecification> create();
+
     // data returns an immutable Data instance.
     virtual const Data& data() const = 0;
     // config returns an immutable Config instance.

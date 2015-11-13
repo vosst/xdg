@@ -100,9 +100,12 @@ fs::path xdg::Data::home() const
 
 std::vector<fs::path> xdg::Data::dirs() const
 {
+    auto v = env::get(env::xdg_data_dirs, "");
+    if (v.empty())
+        return {fs::path{"/usr/local/share"}, fs::path{"/usr/share"}};
+
     std::vector<std::string> tokens;
-    auto dirs = env::get(env::xdg_data_dirs, "/usr/local/share/:/usr/share/");
-    tokens = boost::split(tokens, dirs, boost::is_any_of(":"));
+    tokens = boost::split(tokens, v, boost::is_any_of(":"));
     std::vector<fs::path> result;
     for (const auto& token : tokens)
     {
@@ -122,9 +125,12 @@ fs::path xdg::Config::home() const
 
 std::vector<fs::path> xdg::Config::dirs() const
 {
+    auto v = env::get(env::xdg_config_dirs, "");
+    if (v.empty())
+        return {fs::path{"/etc/xdg"}};
+
     std::vector<std::string> tokens;
-    auto dirs = env::get(env::xdg_config_dirs, "/etc/xdg");
-    tokens = boost::split(tokens, dirs, boost::is_any_of(":"));
+    tokens = boost::split(tokens, v, boost::is_any_of(":"));
     std::vector<fs::path> result;
     for (const auto& token : tokens)
     {

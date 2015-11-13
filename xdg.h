@@ -88,39 +88,14 @@ protected:
     BaseDirSpecification() = default;
 };
 
-namespace data
-{
-// home returns the base directory relative to which user specific
-// data files should be stored.
-boost::filesystem::path home();
-// dirs returns the preference-ordered set of base directories to
-// search for data files in addition to the $XDG_DATA_HOME base
-// directory.
-std::vector<boost::filesystem::path> dirs();
-}
-namespace config
-{
-// home returns the base directory relative to which user specific
-// configuration files should be stored.
-boost::filesystem::path home();
-// dirs returns the preference-ordered set of base directories to
-// search for configuration files in addition to the
-// $XDG_CONFIG_HOME base directory.
-std::vector<boost::filesystem::path> dirs();
-}
-namespace cache
-{
-// home returns the base directory relative to which user specific
-// non-essential data files should be stored.
-boost::filesystem::path home();
-}
-namespace runtime
-{
-// home returns the base directory relative to which user-specific
-// non-essential runtime files and other file objects (such as
-// sockets, named pipes, ...) should be stored.
-boost::filesystem::path dir();
-}
+// data returns an immutable reference to a Data instance.
+const Data& data();
+// config returns an immutable reference to a Config instance.
+const Config& config();
+// cache returns an immutable reference to a Cache instance.
+const Cache& cache();
+// runtime returns an immutable reference to a Runtime instance.
+const Runtime& runtime();
 }
 
 #endif // XDG_H_

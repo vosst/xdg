@@ -162,32 +162,22 @@ fs::path xdg::Runtime::dir() const
     return throw_if_not_absolute(fs::path(v));
 }
 
-boost::filesystem::path xdg::data::home()
+const xdg::Data& xdg::data()
 {
-    return impl::BaseDirSpecification::instance().data().home();
+    return impl::BaseDirSpecification::instance().data();
 }
 
-std::vector<boost::filesystem::path> xdg::data::dirs()
+const xdg::Config& xdg::config()
 {
-    return impl::BaseDirSpecification::instance().data().dirs();
+    return impl::BaseDirSpecification::instance().config();
 }
 
-boost::filesystem::path xdg::config::home()
+const xdg::Cache& xdg::cache()
 {
-    return impl::BaseDirSpecification::instance().config().home();
+    return impl::BaseDirSpecification::instance().cache();
 }
 
-std::vector<boost::filesystem::path> xdg::config::dirs()
+const xdg::Runtime& xdg::runtime()
 {
-    return impl::BaseDirSpecification::instance().config().dirs();
-}
-
-boost::filesystem::path xdg::cache::home()
-{
-    return impl::BaseDirSpecification::instance().cache().home();
-}
-
-boost::filesystem::path xdg::runtime::dir()
-{
-    return impl::BaseDirSpecification::instance().runtime().dir();
+    return impl::BaseDirSpecification::instance().runtime();
 }

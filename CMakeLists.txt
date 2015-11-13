@@ -6,7 +6,6 @@ find_package(Boost COMPONENTS filesystem system unit_test_framework)
 
 include_directories(
     .
-
     ${Boost_INCLUDE_DIRS}
 )
 

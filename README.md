@@ -1,4 +1,4 @@
-# xdg
+# xdg [![Build Status](https://travis-ci.org/vosst/xdg.svg?branch=master)](https://travis-ci.org/vosst/xdg)
 
 A straightforward implementation of the XDG Base Directory Specification in C++11.
 I became tired of retyping and retesting the same functionality over and over again,

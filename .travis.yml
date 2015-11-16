@@ -4,17 +4,18 @@ addons:
   apt:
     sources:
     - ubuntu-toolchain-r-test
+    - boost-latest/ppa
     packages:
-    - gcc-4.8
-    - g++-4.8
-    - libboost-filesystem-dev
-    - libboost-system-dev
-    - libboost-test-dev
+    - gcc-5
+    - g++-5
+    - libboost-filesystem1.55-dev
+    - libboost-system1.55-dev
+    - libboost-test1.55-dev
 
 before_script:
     - mkdir build
     - cd build
-    - cmake -DCMAKE_CXX_COMPILER=g++-4.8 ..
+    - cmake -DCMAKE_C_COMPILER=gcc-5 -DCMAKE_CXX_COMPILER=g++-5 ..
 
 script: make
 

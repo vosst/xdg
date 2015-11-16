@@ -18,6 +18,4 @@ before_script:
 
 script: make
 
-os:
-	- linux
-
+os: linux

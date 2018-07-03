@@ -21,6 +21,9 @@ add_library(xdg xdg.cpp)
 set_property(TARGET xdg PROPERTY CXX_STANDARD 11)
 target_link_libraries(xdg ${Boost_LIBRARIES})
 
+add_executable(xdg_info xdg_info.cpp)
+target_link_libraries(xdg_info xdg)
+
 if (XDG_BUILD_TESTS)
     enable_testing()
     add_definitions(-DBOOST_TEST_DYN_LINK -DBOOST_TEST_MAIN -DBOOST_TEST_MODULE=xdg)

@@ -166,7 +166,7 @@ fs::path xdg::Cache::home() const
 
 fs::path xdg::Runtime::dir() const
 {
-    auto v = env::get(env::xdg_config_home, "");
+    auto v = env::get(env::xdg_runtime_dir, "");
     if (v.empty())
     {
         // We do not fall back gracefully and instead throw, dispatching to calling

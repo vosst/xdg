@@ -19,9 +19,9 @@ set_property(TARGET xdgcpp PROPERTY CXX_STANDARD 17)
 set_target_properties(xdgcpp PROPERTIES PUBLIC_HEADER "xdg.h")
 target_link_libraries(xdgcpp ${Boost_LIBRARIES})
 
-add_executable(xdg-info xdg_info.cpp)
-set_property(TARGET xdg-info PROPERTY CXX_STANDARD 17)
-target_link_libraries(xdg-info xdgcpp)
+add_executable(xdgcpp-info xdg_info.cpp)
+set_property(TARGET xdgcpp-info PROPERTY CXX_STANDARD 17)
+target_link_libraries(xdgcpp-info xdgcpp)
 
 if (XDG_BUILD_TESTS)
     enable_testing()
@@ -33,7 +33,7 @@ if (XDG_BUILD_TESTS)
     add_test(xdg_test xdg_test)
 endif()
 
-install(TARGETS xdgcpp xdg-info
+install(TARGETS xdgcpp xdgcpp-info
   LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}/${PROJECT_NAME}"
   PUBLIC_HEADER DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}")
 

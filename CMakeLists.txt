@@ -19,6 +19,7 @@ include_directories(
 
 add_library(xdg xdg.cpp)
 set_property(TARGET xdg PROPERTY CXX_STANDARD 11)
+set_target_properties(xdg PROPERTIES PUBLIC_HEADER "xdg.h")
 target_link_libraries(xdg ${Boost_LIBRARIES})
 
 add_executable(xdg_info xdg_info.cpp)
@@ -33,3 +34,7 @@ if (XDG_BUILD_TESTS)
 
     add_test(xdg_test xdg_test)
 endif()
+
+install(TARGETS xdg xdg_info)
+
+# EOF #

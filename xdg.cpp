@@ -15,15 +15,35 @@
 
 #include <xdg.h>
 
-#include <boost/algorithm/string.hpp>
-
+#include <algorithm>
 #include <cstdlib>
+#include <iterator>
 #include <stdexcept>
+#include <string>
 
 namespace fs = std::filesystem;
 
 namespace
 {
+
+std::vector<std::string> path_split(const std::string& path)
+{
+  std::vector<std::string> result;
+  std::size_t end = path.find(':');
+
+  std::size_t start = 0;
+  while (end != std::string::npos)
+  {
+    result.push_back(path.substr(start, end - start));
+
+    start = end + 1;
+    end = path.find(':', start);
+  }
+
+  result.push_back(path.substr(start, end - start));
+
+  return result;
+}
 
 fs::path throw_if_not_absolute(const fs::path& p)
 {
@@ -119,8 +139,7 @@ std::vector<fs::path> xdg::Data::dirs() const
     if (v.empty())
         return {fs::path{"/usr/local/share"}, fs::path{"/usr/share"}};
 
-    std::vector<std::string> tokens;
-    tokens = boost::split(tokens, v, boost::is_any_of(":"));
+    std::vector<std::string> tokens = path_split(v);
     std::vector<fs::path> result;
     for (const auto& token : tokens)
     {
@@ -144,8 +163,7 @@ std::vector<fs::path> xdg::Config::dirs() const
     if (v.empty())
         return {fs::path{"/etc/xdg"}};
 
-    std::vector<std::string> tokens;
-    tokens = boost::split(tokens, v, boost::is_any_of(":"));
+    std::vector<std::string> tokens = path_split(v);
     std::vector<fs::path> result;
     for (const auto& token : tokens)
     {

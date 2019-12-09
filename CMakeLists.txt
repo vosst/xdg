@@ -7,30 +7,28 @@ set(XDG_BUILD_TESTS ON CACHE BOOL "Toggles building of the xdg test suite")
 
 set(XDGCPP_VERSION ${PROJECT_VERSION})
 
-find_package(Boost COMPONENTS unit_test_framework REQUIRED)
-
-include_directories(
-    .
-    ${Boost_INCLUDE_DIRS}
-)
+include_directories(.)
 
 add_library(xdgcpp xdg.cpp)
 set_property(TARGET xdgcpp PROPERTY CXX_STANDARD 17)
 set_target_properties(xdgcpp PROPERTIES PUBLIC_HEADER "xdg.h")
-target_link_libraries(xdgcpp ${Boost_LIBRARIES})
 
 add_executable(xdgcpp-info xdg_info.cpp)
 set_property(TARGET xdgcpp-info PROPERTY CXX_STANDARD 17)
 target_link_libraries(xdgcpp-info xdgcpp)
 
 if (XDG_BUILD_TESTS)
+    find_package(Boost COMPONENTS unit_test_framework REQUIRED)
+
     enable_testing()
     add_definitions(-DBOOST_TEST_DYN_LINK -DBOOST_TEST_MAIN -DBOOST_TEST_MODULE=xdgcpp)
-    add_executable(xdg_test xdg_test.cpp)
-    set_property(TARGET xdg_test PROPERTY CXX_STANDARD 17)
-    target_link_libraries(xdg_test xdgcpp)
+    add_executable(xdgcpp_test xdg_test.cpp)
+    set_property(TARGET xdgcpp_test PROPERTY CXX_STANDARD 17)
+    target_link_libraries(xdgcpp_test xdgcpp)
+    target_link_libraries(xdgcpp_test ${Boost_LIBRARIES})
+    target_include_directories(xdgcpp_test PRIVATE ${Boost_INCLUDE_DIRS})
 
-    add_test(xdg_test xdg_test)
+    add_test(xdgcpp_test xdgcpp_test)
 endif()
 
 install(TARGETS xdgcpp xdgcpp-info

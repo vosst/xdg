@@ -20,7 +20,7 @@
 #include <cstdlib>
 #include <stdexcept>
 
-namespace fs = boost::filesystem;
+namespace fs = std::filesystem;
 
 namespace
 {

@@ -7,7 +7,7 @@ set(XDG_BUILD_TESTS ON CACHE BOOL "Toggles building of the xdg test suite")
 
 set(XDGCPP_VERSION ${PROJECT_VERSION})
 
-find_package(Boost COMPONENTS filesystem system unit_test_framework REQUIRED)
+find_package(Boost COMPONENTS unit_test_framework REQUIRED)
 
 include_directories(
     .

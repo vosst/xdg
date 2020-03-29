@@ -10,7 +10,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 set(XDG_BUILD_TESTS ON CACHE BOOL "Toggles building of the xdg test suite")
 
-find_package(Boost COMPONENTS filesystem system unit_test_framework)
+find_package(Boost COMPONENTS filesystem system unit_test_framework REQUIRED)
 
 include_directories(
     .

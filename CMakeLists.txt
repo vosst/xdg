@@ -3,7 +3,7 @@ project(xdgcpp VERSION 0.1.0)
 
 include(GNUInstallDirs)
 
-set(XDG_BUILD_TESTS ON CACHE BOOL "Toggles building of the xdg test suite")
+set(XDG_BUILD_TESTS OFF CACHE BOOL "Toggles building of the xdg test suite")
 
 set(XDGCPP_VERSION ${PROJECT_VERSION})
 

@@ -57,14 +57,14 @@ namespace env
 {
 std::string get(const std::string& key, const std::string& default_value)
 {
-    if (auto value = std::getenv(key.c_str()))
+    if (const char* value = std::getenv(key.c_str()))
         return value;
     return default_value;
 }
 
 std::string get_or_throw(const std::string& key)
 {
-    if (auto value = std::getenv(key.c_str()))
+    if (const char* value = std::getenv(key.c_str()))
     {
         return value;
     }
@@ -141,6 +141,7 @@ std::vector<fs::path> xdg::Data::dirs() const
 
     std::vector<std::string> tokens = path_split(v);
     std::vector<fs::path> result;
+    result.reserve(tokens.size());
     for (const auto& token : tokens)
     {
         result.push_back(throw_if_not_absolute(fs::path(token)));

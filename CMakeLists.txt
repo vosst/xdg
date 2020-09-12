@@ -7,7 +7,7 @@ set(XDG_BUILD_TESTS OFF CACHE BOOL "Toggles building of the xdg test suite")
 
 set(XDGCPP_VERSION ${PROJECT_VERSION})
 
-add_library(xdgcpp xdg.cpp)
+add_library(xdgcpp STATIC xdg.cpp)
 set_property(TARGET xdgcpp PROPERTY CXX_STANDARD 17)
 set_target_properties(xdgcpp PROPERTIES PUBLIC_HEADER "include/xdg.h")
 target_include_directories(xdgcpp PUBLIC "include/")

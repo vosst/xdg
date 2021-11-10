@@ -10,8 +10,10 @@ set(XDGCPP_VERSION ${PROJECT_VERSION})
 add_library(xdgcpp STATIC xdg.cpp)
 set_property(TARGET xdgcpp PROPERTY CXX_STANDARD 17)
 set_target_properties(xdgcpp PROPERTIES PUBLIC_HEADER "include/xdg.h")
-target_include_directories(xdgcpp PUBLIC "include/")
-
+target_include_directories(xdgcpp PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>
+  )
 add_executable(xdgcpp-info xdg_info.cpp)
 set_property(TARGET xdgcpp-info PROPERTY CXX_STANDARD 17)
 target_link_libraries(xdgcpp-info xdgcpp)
@@ -31,8 +33,21 @@ if(XDG_BUILD_TESTS)
 endif()
 
 install(TARGETS xdgcpp xdgcpp-info
+  EXPORT xdgcpp-targets
   LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}/${PROJECT_NAME}"
   PUBLIC_HEADER DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}")
+
+# CMake integration
+configure_file(xdgcpp-config.cmake.in
+  "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_FILES_DIRECTORY}/xdgcpp-config.cmake" @ONLY)
+install(FILES
+  "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_FILES_DIRECTORY}/xdgcpp-config.cmake"
+  DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/xdgcpp/")
+export(TARGETS xdgcpp
+  FILE "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_FILES_DIRECTORY}/xdgcpp-targets.cmake")
+export(PACKAGE xdgcpp)
+install(EXPORT xdgcpp-targets
+  DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/xdgcpp/")
 
 configure_file(
   "${CMAKE_CURRENT_SOURCE_DIR}/pkgconfig/xdgcpp.pc.in"

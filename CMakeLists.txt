@@ -12,7 +12,7 @@ set_property(TARGET xdgcpp PROPERTY CXX_STANDARD 17)
 set_target_properties(xdgcpp PROPERTIES PUBLIC_HEADER "include/xdg.h")
 target_include_directories(xdgcpp PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-  $<INSTALL_INTERFACE:include>
+  $<INSTALL_INTERFACE:include/xdgcpp>
   )
 add_executable(xdgcpp-info xdg_info.cpp)
 set_property(TARGET xdgcpp-info PROPERTY CXX_STANDARD 17)
